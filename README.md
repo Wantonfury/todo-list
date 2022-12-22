@@ -4,7 +4,7 @@
 ### Live demo: https://wantonfury.github.io/todo-list/
 
 ## Built with:
-### - JavaScript ES6
-### - CSS3
-### - HTML5
-### - Webpack 5
+- JavaScript ES6
+- CSS3
+- HTML5
+- Webpack 5
