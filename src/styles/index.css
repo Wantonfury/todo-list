@@ -1,3 +1,7 @@
+:root {
+    --header-background: #16161a;
+}
+
 html {
     height: 100%;
 }
@@ -12,16 +16,45 @@ body {
     margin: 0px;
     
     min-height: 100vh;
+    height: 100%;
 }
 
 #header {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
     
+    gap: 10px;
     width: 100%;
-    height: 120px;
+    height: 80px;
+    
+    background-color: #16161a;
+}
+
+#header .icon:first-of-type {
+    margin-left: 20px;
+}
+
+.icon {
+    width: 40px;
+    height: auto;
+    
+    cursor: pointer;
+    user-select: none;
+    
+    transition: background-color 100ms;
+}
+
+.icon:hover {
+    background-color: #72757e;
+}
+
+#icon-menu {
+    content: url('../img/icon-menu.svg');
+    
+}
+
+#icon-home {
+    content: url('../img/icon-home.svg');
 }
 
 #footer {
@@ -30,15 +63,112 @@ body {
     align-items: center;
     
     width: 100%;
-    height: 80px;
+    height: 40px;
+    gap: 10px;
+    
+    background-color: #16161a;
 }
 
 #footer p {
     font-size: 12px;
     font-weight: 500;
+    color: #94a1b2;
 }
 
 #footer img {
+    display: inline-block;
     content: url('../img/github-mark.png');
+    width: 24px;
+    height: auto;
+    
+    transition: transform .3s;
 }
 
+#footer img:hover {
+    transform: rotateZ(360deg);
+}
+
+#content {
+    display: flex;
+    
+    background-color: #242629;
+    
+    height: 100%;
+    width: 100%;
+}
+
+#dashboard {
+    position: relative;
+    width: 300px;
+    height: 100%;
+    
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    
+    /*transition: width 1s, min-width 1s;*/
+    transition: transform .5s;
+}
+
+#dashboard > *:not(#dashboard-background) {
+    z-index: 1;
+}
+
+#dashboard-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    background-color: #16161a;
+}
+
+.dashboard-hide {
+    transform: translateX(-100%);
+}
+
+.dash-icon {
+    height: auto;
+    width: 24px;
+}
+
+.dash-text {
+    color: #fffffe;
+}
+
+.dash-item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    
+    gap: 10px;
+    padding-left: 10px;
+    
+    width: 50%;
+    height: 40px;
+}
+
+.dash-item:hover {
+    background-color: #7f5af0;
+    cursor: pointer;
+    user-select: none;
+}
+
+#todo-content {
+    width: 100%;
+    height: 100%;
+    
+    background-color: #242629;
+    transition: margin-left .5s;
+}
+
+.todo-expand {
+    margin-left: -300px;
+}
+
+#inbox img {
+    content: url('../img/icon-inbox.svg');
+}

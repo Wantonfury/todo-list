@@ -1,3 +1,4 @@
 import '../styles/index.css';
+import domManager from '../js/dom.js';
 
-console.log("Hello World!");
+domManager.init();
