@@ -8,14 +8,8 @@ const domManager = (() => {
             const dash = document.querySelector('#dashboard');
             const todo = document.querySelector('#todo-content');
             
-            if (dash.classList.contains('dashboard-hide')) {
-                dash.classList.remove('dashboard-hide');
-                todo.classList.remove('todo-expand');
-            }
-            else {
-                dash.classList.add('dashboard-hide');
-                todo.classList.add('todo-expand');
-            }
+            dash.classList.toggle('dashboard-hide');
+            todo.classList.toggle('todo-expand');
         });
         
         // Setup the home button
@@ -24,11 +18,28 @@ const domManager = (() => {
         });
     }
     
-    const init = () => {
-        setupHeaderButtons();
+    const setupProjectsTab = () => {
+        const add = document.querySelector('#projects-add');
+        const toggle = document.querySelector('#projects-toggle');
+        
+        toggle.addEventListener('click', (e) => {
+            e.currentTarget.classList.toggle('projects-add-close');
+            
+            const list = document.querySelector('#projects-list');
+            list.classList.toggle('projects-list-hide');
+        })
     }
     
-    return { init };
+    const addProject = (name) => {
+        
+    }
+    
+    const init = () => {
+        setupHeaderButtons();
+        setupProjectsTab();
+    }
+    
+    return { init, addProject };
 })();
 
 export default domManager;
