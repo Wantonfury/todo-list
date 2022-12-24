@@ -103,7 +103,7 @@ body {
     position: relative;
     width: 300px;
     height: 100%;
-    padding: 20px 0px;
+    padding: 0px;
     gap: 20px;
     
     display: flex;
@@ -117,6 +117,10 @@ body {
 
 #dashboard > *:not(#dashboard-background) {
     z-index: 1;
+}
+
+.dash-item:nth-child(2) {
+    margin-top: 20px;
 }
 
 #dashboard-background {
