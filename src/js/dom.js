@@ -61,6 +61,26 @@ const domManager = (() => {
         });
     }
     
+    const setupProjectsTabColor = () => {
+        const colorPicker = document.querySelector('#form-color-picker');
+        const list = document.querySelector('#color-picker-list');
+        
+        window.addEventListener('click', (e) => {
+            if (e.target.matches('li.color-picker-item') || e.target.matches('#form-color-picker')) {
+                list.classList.toggle('hide-color');
+                
+                if (e.target.matches('li.color-picker-item')) {
+                    const colorCode = e.target.querySelector('.color-picker-color');
+                    const colorName = e.target.querySelector('.color-picker-name');
+                    
+                    colorPicker.querySelector('.color-picker-color').style.backgroundColor = colorCode.style.backgroundColor;
+                    colorPicker.querySelector('.color-picker-name').textContent = colorName.textContent;
+                }
+            } else
+                list.classList.add('hide-color');
+        })
+    }
+    
     const addProject = () => {
         
     }
@@ -68,6 +88,7 @@ const domManager = (() => {
     const init = () => {
         setupHeaderButtons();
         setupProjectsTab();
+        setupProjectsTabColor();
     }
     
     return { init, addProject };
