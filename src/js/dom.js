@@ -20,6 +20,10 @@ const domManager = (() => {
     
     const setupProjectsTab = () => {
         const add = document.querySelector('#projects-add');
+        const overlay = document.querySelector('#projects-add-form-overlay');
+        const form = document.querySelector('#projects-add-form');
+        const btnCancel = document.querySelector('#form-btn-cancel');
+        
         const toggle = document.querySelector('#projects-toggle');
         
         toggle.addEventListener('click', (e) => {
@@ -27,10 +31,37 @@ const domManager = (() => {
             
             const list = document.querySelector('#projects-list');
             list.classList.toggle('projects-list-hide');
-        })
+        });
+        
+        add.addEventListener('click', () => {
+            const formContainer = document.querySelector('#projects-add-form-cnt');
+            
+            formContainer.classList.remove('form-hide');
+        });
+        
+        overlay.addEventListener('click', (e) => {
+            if (e.currentTarget === e.target) {
+                const formContainer = document.querySelector('#projects-add-form-cnt');
+                formContainer.classList.add('form-hide');
+            }
+        });
+        
+        btnCancel.addEventListener('click', (e) => {
+            const formContainer = document.querySelector('#projects-add-form-cnt');
+            formContainer.classList.add('form-hide');
+            
+            e.preventDefault();
+        });
+        
+        form.addEventListener('submit', (e) => {
+            const formContainer = document.querySelector('#projects-add-form-cnt');
+            formContainer.classList.add('form-hide');
+            
+            e.preventDefault();
+        });
     }
     
-    const addProject = (name) => {
+    const addProject = () => {
         
     }
     

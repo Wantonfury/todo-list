@@ -39,6 +39,31 @@
                         <img alt="Expand" id="projects-toggle" class="dash-icon">
                     </div>
                     
+                    <div id="projects-add-form-cnt" class="form-hide">
+                        <div id="projects-add-form-overlay"></div>
+                        
+                        <form id="projects-add-form">
+                            <span>Add Project</span>
+                            
+                            <div id="form-name">
+                                <label for="project-name">Name</label>
+                                <input type="text" name="project-name" id="form-add">
+                            </div>
+                            
+                            <div id="form-color">
+                                <button id="form-color-picker"><div class="color-picker-color" style="background-color: #fffffe;"></div><span>White</span></button>
+                                <ul id="color-picker">
+                                    <li class="color-picker-item"><div class="color-picker-color" style="background-color: #fffffe;"></div><span>White</span></li>
+                                </ul>
+                            </div>
+                            
+                            <div id="form-btns">
+                                <button id="form-btn-cancel">Cancel</button>
+                                <input type="submit" id="form-btn-add">
+                            </div>
+                        </form>
+                    </div>
+                    
                     <div id="projects-list">
                         <div class="project">
                             <img alt="Project" class="dash-bullet">
