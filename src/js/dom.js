@@ -46,9 +46,21 @@ const domManager = (() => {
             }
         });
         
+        const formReset = (formContainer) => {
+            const name = document.querySelector('#form-add');
+            const colorCode = document.querySelector('#form-color-picker .color-picker-color');
+            const colorName = document.querySelector('#form-color-picker .color-picker-name');
+            
+            name.value = '';
+            colorCode.style.backgroundColor = '#fffffe';
+            colorName.textContent = 'White';
+        }
+        
         btnCancel.addEventListener('click', (e) => {
             const formContainer = document.querySelector('#projects-add-form-cnt');
             formContainer.classList.add('form-hide');
+            
+            formReset(formContainer);
             
             e.preventDefault();
         });
@@ -56,6 +68,8 @@ const domManager = (() => {
         form.addEventListener('submit', (e) => {
             const formContainer = document.querySelector('#projects-add-form-cnt');
             formContainer.classList.add('form-hide');
+            
+            formReset(formContainer);
             
             e.preventDefault();
         });
