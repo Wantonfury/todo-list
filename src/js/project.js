@@ -1,29 +1,32 @@
 class Project {
+    #name;
+    #color;
+    
     constructor(name, color) {
-        this._name = name;
-        this._color = color;
+        this.name = name;
+        this.color = color;
     }
     
     get name() {
-        return this._name;
+        return this.#name;
     }
     
-    set name(name) {
-        this._name = name;
+    set name(value) {
+        this.#name = value;
     }
     
     get color() {
-        return this._color;
+        return this.#color;
     }
     
-    set color(color) {
-        this._color = color;
+    set color(value) {
+        this.#color = value;
     }
     
-    toJson() {
+    toJSON() {
         return {
-            name: this._name,
-            color: this._color
+            name: this.name,
+            color: this.color
         }
     }
 };
