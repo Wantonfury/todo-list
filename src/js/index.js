@@ -5,6 +5,7 @@ import storage from '../js/storage.js';
 
 const todo = (() => {
     let projects = [];
+    let projectActive;
     
     const addProject = (name, color) => {
         const project = new Project(name, color);
@@ -15,6 +16,15 @@ const todo = (() => {
     
     const loadProjects = () => {
         projects = storage.loadProjects();
+        if (projects.length === 0) return false;
+        return true;
+    }
+    
+    const selectProject = (e) => {
+        const name = e.currentTarget.querySelector('.dash-text').textContent;
+        
+        projectActive = projects.find(p => p.name === name);
+        domManager.setActive(e.currentTarget);
     }
     
     const init = () => {
@@ -37,7 +47,10 @@ const todo = (() => {
             e.preventDefault();
         });
         
-        loadProjects();
+        if (!loadProjects()) {
+            addProject('Default', '#fffffe');
+            projectActive = projects[0];
+        }
         
         projects.forEach(project => {
             domManager.addProject(project.name, project.color);

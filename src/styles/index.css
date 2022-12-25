@@ -144,6 +144,9 @@ body {
 
 .dash-text {
     color: #fffffe;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 80%;
 }
 
 .dash-bullet {

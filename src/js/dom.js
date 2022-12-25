@@ -10,6 +10,10 @@ const domManager = (() => {
         </div>`;
     }
     
+    const setActive = (project) => {
+        
+    }
+    
     const setupHeaderButtons = () => {
         const btnMenu = document.querySelector('#icon-menu');
         const btnHome = document.querySelector('#icon-home');
@@ -122,7 +126,7 @@ const domManager = (() => {
         setupProjectsTabColor();
     }
     
-    return { init, addProject };
+    return { init, addProject, setActive };
 })();
 
 export default domManager;
