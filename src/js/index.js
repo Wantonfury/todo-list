@@ -21,6 +21,11 @@ const todo = (() => {
         const projectAdd = document.querySelector('#projects-add-form');
         
         projectAdd.addEventListener('submit', (e) => {
+            if (document.querySelector('#form-btn-add').classList.contains('disabled')) {
+                e.preventDefault();
+                return;
+            }
+            
             const formContainer = document.querySelector('#projects-add-modal');
             formContainer.classList.add('form-hide');
             

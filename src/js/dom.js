@@ -34,18 +34,21 @@ const domManager = (() => {
         const name = document.querySelector('#form-add');
         const colorCode = document.querySelector('#form-color-picker .color-picker-color');
         const colorName = document.querySelector('#form-color-picker .color-picker-name');
+        const btn = document.querySelector('#form-btn-add');
         
+        btn.classList.add('disabled');
         name.value = '';
         colorCode.style.backgroundColor = '#fffffe';
         colorName.textContent = 'White';
     }
     
-    // Sets up the projects menu in the dashboard
-    const setupProjectsTab = () => {
+    // Sets up the projects modal
+    const setupProjectsModal = () => {
         const add = document.querySelector('#projects-add');
         const overlay = document.querySelector('#projects-add-form-overlay');
         const form = document.querySelector('#projects-add-form');
         const btnCancel = document.querySelector('#form-btn-cancel');
+        const textField = document.querySelector('#form-add');
         
         const toggle = document.querySelector('#projects-toggle');
         
@@ -80,6 +83,16 @@ const domManager = (() => {
             
             e.preventDefault();
         });
+        
+        // Disable add button if name field is empty
+        textField.addEventListener('input', (e) => {
+            if (e.currentTarget.value.length > 0) {
+                document.querySelector('#form-btn-add').classList.remove('disabled');
+            }
+            else {
+                document.querySelector('#form-btn-add').classList.add('disabled');
+            }
+        });
     }
     
     // Sets the color picker
@@ -105,7 +118,7 @@ const domManager = (() => {
     
     const init = () => {
         setupHeaderButtons();
-        setupProjectsTab();
+        setupProjectsModal();
         setupProjectsTabColor();
     }
     

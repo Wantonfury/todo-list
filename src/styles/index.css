@@ -409,8 +409,16 @@ body {
     background-color: #4A4D56 !important;
 }
 
-#form-btn-add:hover {
+#form-btn-add:hover:not(.disabled) {
     background-color: #5732C8 !important;
+}
+
+.disabled {
+    filter: grayscale(1);
+}
+
+.disabled:hover {
+    cursor: not-allowed !important;
 }
 
 #form-color {
