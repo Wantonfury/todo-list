@@ -286,7 +286,7 @@ body {
     background-color: #7f5af0;
 }
 
-#projects-add-form-cnt {
+#projects-add-modal {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -299,7 +299,7 @@ body {
     bottom: 50%;
 }
 
-#projects-add-form-cnt *:not(#projects-add-form-overlay) {
+#projects-add-modal *:not(#projects-add-form-overlay) {
     z-index: 2;
 }
 
