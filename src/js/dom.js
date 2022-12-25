@@ -29,6 +29,17 @@ const domManager = (() => {
         });
     }
     
+    // Empty name field and reset color choice to default
+    const formReset = (formContainer) => {
+        const name = document.querySelector('#form-add');
+        const colorCode = document.querySelector('#form-color-picker .color-picker-color');
+        const colorName = document.querySelector('#form-color-picker .color-picker-name');
+        
+        name.value = '';
+        colorCode.style.backgroundColor = '#fffffe';
+        colorName.textContent = 'White';
+    }
+    
     // Sets up the projects menu in the dashboard
     const setupProjectsTab = () => {
         const add = document.querySelector('#projects-add');
@@ -50,6 +61,7 @@ const domManager = (() => {
         add.addEventListener('click', () => {
             const formContainer = document.querySelector('#projects-add-modal');
             
+            formReset(formContainer);
             formContainer.classList.remove('form-hide');
         });
         
@@ -61,38 +73,10 @@ const domManager = (() => {
             }
         });
         
-        // Empty name field and reset color choice to default
-        const formReset = (formContainer) => {
-            const name = document.querySelector('#form-add');
-            const colorCode = document.querySelector('#form-color-picker .color-picker-color');
-            const colorName = document.querySelector('#form-color-picker .color-picker-name');
-            
-            name.value = '';
-            colorCode.style.backgroundColor = '#fffffe';
-            colorName.textContent = 'White';
-        }
-        
         // Exit project modal
         btnCancel.addEventListener('click', (e) => {
             const formContainer = document.querySelector('#projects-add-modal');
             formContainer.classList.add('form-hide');
-            
-            formReset(formContainer);
-            
-            e.preventDefault();
-        });
-        
-        // Add the project to the list of projects
-        form.addEventListener('submit', (e) => {
-            const formContainer = document.querySelector('#projects-add-modal');
-            formContainer.classList.add('form-hide');
-            
-            const name = document.querySelector('#form-add').value;
-            const color = document.querySelector('#form-color-picker .color-picker-color').style.backgroundColor;
-            
-            // Check that project name doesn't already exist
-            addProject(name, color);
-            formReset(formContainer);
             
             e.preventDefault();
         });
