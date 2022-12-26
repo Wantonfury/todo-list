@@ -217,14 +217,6 @@ body {
     content: url('../img/icon-inbox.svg');
 }
 
-#today img {
-    content: url('../img/icon-today.svg');
-}
-
-#upcoming img {
-    content: url('../img/icon-upcoming.svg');
-}
-
 #projects {
     display: flex;
     flex-direction: column;
@@ -608,10 +600,12 @@ input[type=image] {
     color: #fffffe;
     font-size: 24px;
     font-weight: 700;
+    user-select: none;
 }
 
 #todo-add {
     border-bottom: none;
+    user-select: none;
 }
 
 #todo-add:hover #todo-add-text {
@@ -634,25 +628,77 @@ input[type=image] {
     gap: 10px;
     
     width: 40%;
-    height: 40px;
-    padding: 0px 10px;
+    height: auto;
+    min-height: 40px;
+    padding: 10px;
     
     cursor: pointer;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #72757e;
 }
 
 .todo-task-check {
+    position: relative;
+    cursor: pointer;
     
+    height: 20px;
+    width: 20px;
+    
+    border-radius: 50%;
+    background-color: #242629;
+}
+
+.todo-task-check:hover::before {
+    content: url('../img/icon-check.svg');
+    position: absolute;
+    
+    top: 0;
+    left: 0;
+    
+    height: auto;
+    width: 16px;
+}
+
+.todo-task-check-priority-1 {
+    border: 2px solid red;
+}
+
+.todo-task-check-priority-2 {
+    border: 2px solid orange;
+}
+
+.todo-task-check-priority-3 {
+    border: 2px solid blue;
+}
+
+.todo-task-check-priority-4 {
+    border: 2px solid #fffffe;
+}
+
+.todo-task-content {
+    display: flex;
+    flex-direction: column;
+    
+    gap: 4px;
 }
 
 .todo-task-title {
-    
+    color: #fffffe;
 }
 
 .todo-task-desc {
-    
+    color: #72757e;
 }
 
-.todo-task-due-date {
+.todo-task-date {
+    display: flex;
+    align-items: center;
+    gap: 6px;
     
+    color:#7f5af0;
+}
+
+.todo-task-date-img {
+    content: url('../img/icon-calendar.svg');
+    height: auto;
+    width: 16px;
 }

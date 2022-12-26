@@ -105,7 +105,42 @@ const domManager = (() => {
     }
     
     const addTODO = (todo) => {
+        const task = document.createElement('li');
+        task.classList.add('todo-task');
+        task.dataset.id = todo.id;
         
+        const priority = document.createElement('button');
+        priority.type = 'button';
+        priority.classList.add('todo-task-check', 'todo-task-check-priority-' + todo.priority);
+        
+        const title = document.createElement('span');
+        title.classList.add('todo-task-title');
+        title.textContent = todo.title;
+        
+        const desc = document.createElement('span');
+        desc.classList.add('todo-task-desc');
+        desc.textContent = todo.description;
+        
+        const dueDate = document.createElement('div');
+        dueDate.classList.add('todo-task-date');
+        
+        const dueDateImg = document.createElement('img');
+        dueDateImg.classList.add('todo-task-date-img');
+        
+        const dueDateDay = document.createElement('span');
+        dueDateDay.textContent = todo.dueDate;
+        dueDateDay.classList.add('todo-task-date-text');
+        
+        dueDate.append(dueDateImg, dueDateDay);
+        
+        const content = document.createElement('div');
+        content.classList.add('todo-task-content');
+        
+        content.append(title, desc, dueDate);
+        task.append(priority, content);
+        
+        const menu = document.querySelector('#todo-menu');
+        menu.insertBefore(task, menu.lastChild);
     }
     
     // Empty name field and reset color choice to default

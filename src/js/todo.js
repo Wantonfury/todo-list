@@ -1,14 +1,18 @@
+let todoID = 0;
+
 class TODO {
     #title;
     #description;
     #dueDate;
     #priority;
+    #id;
     
     constructor(title, description, dueDate, priority) {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
+        this.id = todoID++;
     }
     
     get title() {
@@ -38,9 +42,27 @@ class TODO {
     get priority() {
         return this.#priority;
     }
-    priority
-    set title(value) {
+    
+    set priority(value) {
         this.#priority = value;
+    }
+    
+    get id() {
+        return this.#id;
+    }
+    
+    set id(value) {
+        this.#id = value;
+    }
+    
+    toJSON() {
+        return {
+            title: this.#title,
+            description: this.description,
+            dueDate: this.dueDate,
+            priority: this.priority,
+            id: this.id
+        }
     }
 }
 

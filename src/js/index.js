@@ -4,7 +4,7 @@ import Project from '../js/project.js';
 import TODO from '../js/todo.js';
 import storage from '../js/storage.js';
 
-const todo = (() => {
+const todoManager = (() => {
     const maxProjects = 5;
     
     let tabs = [];
@@ -12,6 +12,9 @@ const todo = (() => {
     
     let projects = [];
     let projectActive;
+    
+    let todos = [];
+    let todosMax = 6;
     
     const addProject = (name, color) => {
         const project = new Project(name, color);
@@ -27,6 +30,26 @@ const todo = (() => {
         storage.saveProjects(projects);
     }
     
+    const addTODO = (todo) => {
+        todos.push(todo);
+        domManager.addTODO(todo);
+            
+        const checkAll = document.querySelectorAll('.todo-task-check');
+        const check = checkAll[checkAll.length - 1];
+        
+        check.addEventListener('click', (e) => {
+            removeTODO(e.currentTarget.dataset.id);
+            e.currentTarget.parentElement.remove();
+        });
+        
+        
+    }
+    
+    const removeTODO = (id) => {
+        const todo = todos.find(t => t.id === id);
+        todos.splice(todos.indexOf(todo), 1);
+    }
+    
     const loadProjects = () => {
         projects = storage.loadProjects();
         if (projects.length === 0) return false;
@@ -35,6 +58,15 @@ const todo = (() => {
     
     const populateTODO = () => {
         domManager.populateTODO();
+        
+        const addTask = document.querySelector('#todo-add');
+        addTask.addEventListener('click', () => {
+            if (todos.length >= todosMax) return;
+            
+            const todo = new TODO('Hello world!', 'Just a description m\'lord.', '23 Dec', 1);
+            addTODO(todo);
+            
+        });
     }
     
     const setActiveTab = (tab) => {
@@ -53,14 +85,12 @@ const todo = (() => {
     
     const setupSelection = () => {
         const inbox = document.querySelector('#inbox');
-        const today = document.querySelector('#today');
-        const upcoming = document.querySelector('#upcoming');
         
         inbox.addEventListener('click', eventSelectTab.bind(this));
-        today.addEventListener('click', eventSelectTab.bind(this));
-        upcoming.addEventListener('click', eventSelectTab.bind(this));
+        const project = new Project('inbox', '');
+        projects.push(project);
         
-        tabs.push(inbox, today, upcoming);
+        tabs.push(inbox);
     }
     
     const init = () => {
@@ -99,8 +129,6 @@ const todo = (() => {
         }
         
         if (projects.length > maxProjects) {
-            //console.log(projects.splice(4));
-            console.log("Length: " + projects.length);
             projects.splice(maxProjects);
             storage.saveProjects(projects);
         }
@@ -121,4 +149,4 @@ const todo = (() => {
 })();
 
 domManager.init();
-todo.init();
+todoManager.init();

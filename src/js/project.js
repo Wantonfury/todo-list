@@ -26,12 +26,12 @@ class Project {
         this.#color = value;
     }
     
-    addTODO = (todo) => {
-        this.#todo.push(todo);
+    addTODO = (id) => {
+        this.#todo.push(id);
     }
     
-    removeTODO = (title) => {
-        const todo = this.#todo.find(t => t.title === title);
+    removeTODO = (id) => {
+        const todo = this.#todo.find(t => t === id);
         this.#todo.splice(this.#todo.indexOf(todo), 1);
     }
     
