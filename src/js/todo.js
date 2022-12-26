@@ -1,5 +1,3 @@
-let todoID = 0;
-
 class TODO {
     #title;
     #description;
@@ -7,16 +5,28 @@ class TODO {
     #priority;
     #id;
     
+    static _idsGenerated = [];
+    
     constructor(title, description, dueDate, priority) {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
-        this.id = todoID++;
+        this.id = this.constructor.generateID();
     }
     
-    generateID() {
+    static generateID() {
+        if (!this._idsGenerated || this._idsGenerated.length <= 0) {
+            this._idsGenerated = [0];
+            return 0;
+        }
         
+        for (let id = 0; id <= 100; ++id) {
+            if (!this._idsGenerated.includes(id)) {
+                this._idsGenerated.push(id);
+                return id;
+            }
+        }
     }
     
     get title() {

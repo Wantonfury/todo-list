@@ -43,7 +43,7 @@ const todoManager = (() => {
         else projects[projectActive].todos.push(todo.id);
         
         storage.saveProjects(projects);
-        storage.saveTODOS(todos);
+        storage.saveTODOS(todos, TODO._idsGenerated);
     }
     
     const removeTODO = (id) => {
@@ -52,9 +52,10 @@ const todoManager = (() => {
         
         const todoID = projects[projectActive].todos.find(t => t == id);
         projects[projectActive].todos.splice(projects[projectActive].todos.indexOf(todoID), 1);
+        TODO._idsGenerated.splice(TODO._idsGenerated.indexOf(todoID), 1); // Remove ids from list of generated ids
         
         storage.saveProjects(projects);
-        storage.saveTODOS(todos);
+        storage.saveTODOS(todos, TODO._idsGenerated);
     }
     
     const loadTODO = (projectID, todoID) => {
@@ -69,14 +70,8 @@ const todoManager = (() => {
     
     const loadTODOS = () => {
         todos = storage.loadTODOS();
-        
-        /*8projects.forEach((p, pID) => {
-            if (p.todos) {
-                p.todos.forEach(id => {
-                    loadTODO(pID, id);
-                });
-            }
-        });*/
+        let id = storage.loadTODOSIDs();
+        TODO._idsGenerated = id;
         
         const project = projects[projectActive];
         
@@ -202,3 +197,7 @@ const todoManager = (() => {
 
 domManager.init();
 todoManager.init();
+
+window.checkTODOS = function() {
+    return TODO._idsGenerated;
+}

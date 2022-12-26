@@ -19,11 +19,16 @@ const storage = (() => {
         return JSON.parse(todos);
     }
     
-    const saveTODOS = (todos) => {
-        localStorage.setItem('todos', JSON.stringify(todos));
+    const loadTODOSIDs = () => {
+        return JSON.parse(localStorage.getItem('todosIDs'));
     }
     
-    return { loadProjects, saveProjects, loadTODOS, saveTODOS };
+    const saveTODOS = (todos, ids) => {
+        localStorage.setItem('todos', JSON.stringify(todos));
+        localStorage.setItem('todosIDs', JSON.stringify(ids));
+    }
+    
+    return { loadProjects, saveProjects, loadTODOS, loadTODOSIDs, saveTODOS };
 })();
 
 export default storage;
