@@ -1,6 +1,7 @@
 import '../styles/index.css';
 import domManager from '../js/dom.js';
 import Project from '../js/project.js';
+import TODO from '../js/todo.js';
 import storage from '../js/storage.js';
 
 const todo = (() => {

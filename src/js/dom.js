@@ -75,6 +75,10 @@ const domManager = (() => {
         });
     }
     
+    const populateTodo = () => {
+        
+    }
+    
     // Empty name field and reset color choice to default
     const formReset = (formContainer) => {
         const name = document.querySelector('#form-add');
