@@ -79,9 +79,7 @@ const domManager = (() => {
     const populateTODO = () => {
         const menu = document.querySelector('#todo-menu');
         
-        for (const child of menu.children) {
-            child.remove();
-        }
+        menu.replaceChildren();
         
         const addTask = document.createElement('li');
         addTask.id = 'todo-add';

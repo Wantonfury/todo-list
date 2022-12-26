@@ -15,6 +15,10 @@ class TODO {
         this.id = todoID++;
     }
     
+    generateID() {
+        
+    }
+    
     get title() {
         return this.#title;
     }

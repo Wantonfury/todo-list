@@ -9,11 +9,21 @@ const storage = (() => {
     }
     
     const saveProjects = (projects) => {
-        localStorage.clear();
         localStorage.setItem('projects', JSON.stringify(projects));
     }
     
-    return { loadProjects, saveProjects };
+    const loadTODOS = () => {
+        const todos = localStorage.getItem('todos');
+        
+        if (!todos) return [];
+        return JSON.parse(todos);
+    }
+    
+    const saveTODOS = (todos) => {
+        localStorage.setItem('todos', JSON.stringify(todos));
+    }
+    
+    return { loadProjects, saveProjects, loadTODOS, saveTODOS };
 })();
 
 export default storage;

@@ -3,11 +3,12 @@ import TODO from '../js/todo.js';
 class Project {
     #name;
     #color;
-    #todo = [];
+    todos = [];
     
     constructor(name, color) {
         this.name = name;
         this.color = color;
+        this.todos = [];
     }
     
     get name() {
@@ -26,28 +27,11 @@ class Project {
         this.#color = value;
     }
     
-    addTODO = (id) => {
-        this.#todo.push(id);
-    }
-    
-    removeTODO = (id) => {
-        const todo = this.#todo.find(t => t === id);
-        this.#todo.splice(this.#todo.indexOf(todo), 1);
-    }
-    
-    setTODO = (todo) => {
-        this.#todo = todo;
-    }
-    
-    getTODO = () => {
-        return this.#todo;
-    }
-    
     toJSON() {
         return {
             name: this.name,
             color: this.color,
-            setTODO: this.getTODO
+            todos: this.todos
         }
     }
 };
