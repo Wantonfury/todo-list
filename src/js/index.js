@@ -4,6 +4,11 @@ import Project from '../js/project.js';
 import storage from '../js/storage.js';
 
 const todo = (() => {
+    const maxProjects = 5;
+    
+    let tabs = [];
+    let tabActive;
+    
     let projects = [];
     let projectActive;
     
@@ -27,6 +32,30 @@ const todo = (() => {
         domManager.setActive(e.currentTarget);
     }
     
+    const setActiveTab = (tab) => {
+        for (const tab of tabs) domManager.setInactive(tab);
+        
+        domManager.setActive(tab);
+        tabActive = tab;
+    }
+    
+    const eventSelectTab = (e) => {
+        if (e.target.tagName.toLowerCase() === 'input') return;
+        setActiveTab(e.currentTarget);
+    }
+    
+    const setupSelection = () => {
+        const inbox = document.querySelector('#inbox');
+        const today = document.querySelector('#today');
+        const upcoming = document.querySelector('#upcoming');
+        
+        inbox.addEventListener('click', eventSelectTab.bind(this));
+        today.addEventListener('click', eventSelectTab.bind(this));
+        upcoming.addEventListener('click', eventSelectTab.bind(this));
+        
+        tabs.push(inbox, today, upcoming);
+    }
+    
     const init = () => {
         const projectAdd = document.querySelector('#projects-add-form');
         
@@ -48,13 +77,29 @@ const todo = (() => {
         });
         
         if (!loadProjects()) {
+            // If no projects were saved create a Default project
+            
             addProject('Default', '#fffffe');
             projectActive = projects[0];
         }
         
+        if (projects.length > maxProjects) {
+            //console.log(projects.splice(4));
+            console.log("Length: " + projects.length);
+            projects.splice(maxProjects);
+            storage.saveProjects(projects);
+        }
+        domManager.setMaxProjects(maxProjects);
+        
+        setupSelection();
+        domManager.setActive(tabs[0]);
+        
         projects.forEach(project => {
-            domManager.addProject(project.name, project.color);
+            const p = domManager.addProject(project.name, project.color);
+            p.addEventListener('click', eventSelectTab.bind(this));
+            tabs.push(p);
         });
+        
     }
     
     return { init };

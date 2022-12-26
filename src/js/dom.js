@@ -1,17 +1,47 @@
+import IconEllipses from '../img/icon-ellipses.svg';
+
 const domManager = (() => {
+    let maxProjects;
+    
+    const setMaxProjects = (value) => {
+        maxProjects = value;
+    }
+    
     const addProject = (name, color) => {
         const list = document.querySelector('#projects-list');
         
-        list.innerHTML += `
-        <div class="project">
-        <div class="color-picker-color" style="background-color:` + color +`;"></div>
-            <span class="dash-text">` + name + `</span>
-            <span class="dash-tasks"></span>
-        </div>`;
+        const project = document.createElement('div');
+        project.classList.add('project');
+        
+        const colorPicker = document.createElement('div');
+        colorPicker.classList.add('color-picker-color');
+        colorPicker.style.backgroundColor = color;
+        
+        const text = document.createElement('span');
+        text.classList.add('dash-text');
+        text.textContent = name;
+        
+        const tasks = document.createElement('span');
+        tasks.classList.add('dash-tasks');
+        
+        const options = document.createElement('input');
+        options.classList.add('dash-options');
+        options.type = 'image';
+        options.src = IconEllipses;
+        options.addEventListener('click', eventProjectOptions);
+        
+        project.append(colorPicker, text, tasks, options);
+        list.appendChild(project);
+        
+        return project;
     }
     
-    const setActive = (project) => {
-        
+    const setActive = (tab) => {
+        tab.classList.add('dash-active');
+    }
+    
+    const setInactive = (tab) => {
+        tab.classList.remove('dash-active');
     }
     
     const setupHeaderButtons = () => {
@@ -66,6 +96,9 @@ const domManager = (() => {
         
         // Show modal for project addition
         add.addEventListener('click', () => {
+            const list = document.querySelector('#projects-list');
+            if (list.childElementCount >= maxProjects) return;
+            
             const formContainer = document.querySelector('#projects-add-modal');
             
             formReset(formContainer);
@@ -103,10 +136,11 @@ const domManager = (() => {
     const setupProjectsTabColor = () => {
         const colorPicker = document.querySelector('#form-color-picker');
         const list = document.querySelector('#color-picker-list');
+        const options = document.querySelector('#projects-list-options');
         
         window.addEventListener('click', (e) => {
             if (e.target.matches('li.color-picker-item') || e.target.matches('#form-color-picker')) {
-                list.classList.toggle('hide-color');
+                list.classList.toggle('hide');
                 
                 if (e.target.matches('li.color-picker-item')) {
                     const colorCode = e.target.querySelector('.color-picker-color');
@@ -116,8 +150,20 @@ const domManager = (() => {
                     colorPicker.querySelector('.color-picker-name').textContent = colorName.textContent;
                 }
             } else
-                list.classList.add('hide-color');
+                list.classList.add('hide');
+            
+            if (!options.classList.contains('hide')) {
+                if (e.target !== options && e.target.tagName.toLowerCase() !== 'input') options.classList.add('hide');
+            }
         })
+    }
+    
+    const eventProjectOptions = (e) => {
+        const options = document.querySelector('#projects-list-options');
+        const rect = e.currentTarget.getBoundingClientRect();
+        
+        options.style.transform = "translateX(" + rect.left + "px) translateY(" + (rect.bottom + 10) + "px)";
+        options.classList.toggle('hide');
     }
     
     const init = () => {
@@ -126,7 +172,7 @@ const domManager = (() => {
         setupProjectsTabColor();
     }
     
-    return { init, addProject, setActive };
+    return { init, addProject, setActive, setInactive, setMaxProjects };
 })();
 
 export default domManager;
