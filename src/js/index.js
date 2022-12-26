@@ -33,11 +33,8 @@ const todo = (() => {
         return true;
     }
     
-    const selectProject = (e) => {
-        const name = e.currentTarget.querySelector('.dash-text').textContent;
-        
-        projectActive = projects.find(p => p.name === name);
-        domManager.setActive(e.currentTarget);
+    const populateTODO = () => {
+        domManager.populateTODO();
     }
     
     const setActiveTab = (tab) => {
@@ -45,6 +42,8 @@ const todo = (() => {
         
         domManager.setActive(tab);
         tabActive = tab;
+        
+        populateTODO();
     }
     
     const eventSelectTab = (e) => {
@@ -108,7 +107,7 @@ const todo = (() => {
         domManager.setMaxProjects(maxProjects);
         
         setupSelection();
-        domManager.setActive(tabs[0]);
+        setActiveTab(tabs[0]);
         
         projects.forEach(project => {
             const p = domManager.addProject(project.name, project.color);

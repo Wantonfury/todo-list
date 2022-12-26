@@ -596,6 +596,63 @@ input[type=image] {
     flex-direction: column;
     align-items: center;
     
+    list-style: none;
+    
+    gap: 10px;
+    padding: 40px 0px;
     height: 100%;
     width: 100%;
+}
+
+#todo-title {
+    color: #fffffe;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+#todo-add {
+    border-bottom: none;
+}
+
+#todo-add:hover #todo-add-text {
+    color: #7f5af0;
+}
+
+#todo-add-btn {
+    content: url('../img/icon-add-projects.svg');
+    height: auto;
+    width: 16px;
+}
+
+#todo-add-text {
+    color: #94a1b2;
+}
+
+.todo-task {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    
+    width: 40%;
+    height: 40px;
+    padding: 0px 10px;
+    
+    cursor: pointer;
+    border-bottom: 1px solid black;
+}
+
+.todo-task-check {
+    
+}
+
+.todo-task-title {
+    
+}
+
+.todo-task-desc {
+    
+}
+
+.todo-task-due-date {
+    
 }

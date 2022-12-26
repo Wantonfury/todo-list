@@ -50,6 +50,7 @@ const domManager = (() => {
     
     const setActive = (tab) => {
         tab.classList.add('dash-active');
+        setTODOTitle(tab.querySelector('span').textContent);
     }
     
     const setInactive = (tab) => {
@@ -75,7 +76,35 @@ const domManager = (() => {
         });
     }
     
-    const populateTodo = () => {
+    const populateTODO = () => {
+        const menu = document.querySelector('#todo-menu');
+        
+        for (const child of menu.children) {
+            child.remove();
+        }
+        
+        const addTask = document.createElement('li');
+        addTask.id = 'todo-add';
+        addTask.classList.add('todo-task');
+        
+        const plus = document.createElement('input');
+        plus.id = 'todo-add-btn';
+        plus.type = 'image';
+        
+        const text = document.createElement('span');
+        text.id = 'todo-add-text';
+        text.textContent = 'Add task';
+        
+        addTask.append(plus, text);
+        menu.appendChild(addTask);
+    }
+    
+    const setTODOTitle = (title) => {
+        const todoTitle = document.querySelector('#todo-title');
+        todoTitle.textContent = title;
+    }
+    
+    const addTODO = (todo) => {
         
     }
     
@@ -190,7 +219,7 @@ const domManager = (() => {
         setupProjectsTabColor();
     }
     
-    return { init, addProject, setActive, setInactive, setMaxProjects, removeProject };
+    return { init, addProject, setActive, setInactive, setMaxProjects, removeProject, populateTODO, addTODO };
 })();
 
 export default domManager;
