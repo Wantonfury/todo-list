@@ -36,6 +36,18 @@ const domManager = (() => {
         return project;
     }
     
+    const removeProject = (name) => {
+        const spans = document.querySelectorAll('.dash-text');
+        let project;
+        
+        for (const span of spans) {
+            if (span.textContent.includes(name))
+                project = span.parentElement;
+        }
+        
+        project.remove();
+    }
+    
     const setActive = (tab) => {
         tab.classList.add('dash-active');
     }
@@ -155,7 +167,7 @@ const domManager = (() => {
             if (!options.classList.contains('hide')) {
                 if (e.target !== options && e.target.tagName.toLowerCase() !== 'input') options.classList.add('hide');
             }
-        })
+        });
     }
     
     const eventProjectOptions = (e) => {
@@ -164,6 +176,8 @@ const domManager = (() => {
         
         options.style.transform = "translateX(" + rect.left + "px) translateY(" + (rect.bottom + 10) + "px)";
         options.classList.toggle('hide');
+        
+        options.dataset.project = e.currentTarget.parentElement.querySelector('span').textContent;
     }
     
     const init = () => {
@@ -172,7 +186,7 @@ const domManager = (() => {
         setupProjectsTabColor();
     }
     
-    return { init, addProject, setActive, setInactive, setMaxProjects };
+    return { init, addProject, setActive, setInactive, setMaxProjects, removeProject };
 })();
 
 export default domManager;

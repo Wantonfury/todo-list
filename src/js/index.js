@@ -19,6 +19,13 @@ const todo = (() => {
         storage.saveProjects(projects);
     }
     
+    const removeProject = (name) => {
+        const project = projects.find(p => p.name === name);
+        
+        projects.splice(projects.indexOf(project), 1);
+        storage.saveProjects(projects);
+    }
+    
     const loadProjects = () => {
         projects = storage.loadProjects();
         if (projects.length === 0) return false;
@@ -58,6 +65,7 @@ const todo = (() => {
     
     const init = () => {
         const projectAdd = document.querySelector('#projects-add-form');
+        const btnDelete = document.querySelector('#btn-delete');
         
         projectAdd.addEventListener('submit', (e) => {
             if (document.querySelector('#form-btn-add').classList.contains('disabled')) {
@@ -74,6 +82,13 @@ const todo = (() => {
             addProject(name, color);
             domManager.addProject(name, color);
             e.preventDefault();
+        });
+        
+        btnDelete.addEventListener('click', (e) => {
+            const target = e.currentTarget.parentElement.dataset.project;
+            
+            domManager.removeProject(target);
+            removeProject(target);
         });
         
         if (!loadProjects()) {
