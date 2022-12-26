@@ -14,8 +14,28 @@
                 </div>
                 
                 <div class="modal-field">
-                    <input type="text" name="task-title" id="modal-task-title" placeholder="Title" maxlength="10" required>
-                    <input type="text" name="task-desc" id="modal-task-desc" placeholder="Description" maxlength="20" required>
+                    <input type="text" name="task-title" id="modal-task-title" placeholder="Title" maxlength="20" required>
+                    <input type="text" name="task-desc" id="modal-task-desc" placeholder="Description" maxlength="30" required>
+                </div>
+                
+                <div class="modal-btns">
+                    <button type="button" class="modal-btns-cancel">Cancel</button>
+                    <input type="submit" class="modal-btns-add">
+                </div>
+            </div>
+        </form>
+        
+        <form class="modal modal-disabled" id="modal-edit-task">
+            <div class="modal-overlay"></div>
+            
+            <div class="modal-container">
+                <div class="modal-title">
+                    <span>Edit Task</span>
+                </div>
+                
+                <div class="modal-field">
+                    <input type="text" name="task-title" id="modal-edit-title" placeholder="Title" maxlength="20" required>
+                    <input type="text" name="task-desc" id="modal-edit-desc" placeholder="Description" maxlength="30" required>
                 </div>
                 
                 <div class="modal-btns">

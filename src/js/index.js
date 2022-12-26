@@ -32,7 +32,12 @@ const todoManager = (() => {
     
     const addTODO = (todo) => {
         todos.push(todo);
-        domManager.addTODO(todo);
+        const task = domManager.addTODO(todo);
+        
+        task.querySelector('.todo-task-delete').addEventListener('click', () => {
+            removeTODO(task.dataset.id);
+            task.remove();
+        });
             
         const checkAll = document.querySelectorAll('.todo-task-check');
         const check = checkAll[checkAll.length - 1];
@@ -60,7 +65,12 @@ const todoManager = (() => {
     
     const loadTODO = (projectID, todoID) => {
         const todo = todos.find(t => t.id === todoID);
-        domManager.addTODO(todo);
+        const task = domManager.addTODO(todo);
+        
+        task.querySelector('.todo-task-delete').addEventListener('click', () => {
+            removeTODO(task.dataset.id);
+            task.remove();
+        });
         
         const checkAll = document.querySelectorAll('.todo-task-check');
         const check = checkAll[checkAll.length - 1];
@@ -163,7 +173,33 @@ const todoManager = (() => {
     }
     
     const setupModalTaskEdit = () => {
+        const form = document.querySelector('#modal-edit-task');
+        const cancel = document.querySelector('#modal-edit-task .modal-btns-cancel');
+        const overlay = document.querySelector('#modal-edit-task .modal-overlay');
         
+        cancel.addEventListener('click', () => {
+            domManager.toggleModalTaskEdit();
+        });
+        
+        overlay.addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) {
+                domManager.toggleModalTaskEdit();
+            }
+        });
+        
+        form.addEventListener('submit', (e) => {
+            const title = document.querySelector('#modal-edit-title').value;
+            const desc = document.querySelector('#modal-edit-desc').value;
+            
+            const todo = todos.find(t => t.id == form.dataset.id);
+            todo.title = title;
+            todo.description = desc;
+            domManager.editTODO(todo);
+            storage.saveTODOS(todos, TODO._idsGenerated);
+            
+            domManager.toggleModalTaskEdit();
+            e.preventDefault();
+        });
     }
     
     const init = () => {
@@ -199,7 +235,6 @@ const todoManager = (() => {
         
         if (!loadProjects()) {
             // If no projects were saved create a Default project
-            
             addProject('Default', '#fffffe');
         }
         

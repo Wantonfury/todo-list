@@ -134,11 +134,40 @@ const domManager = (() => {
         const content = document.createElement('div');
         content.classList.add('todo-task-content');
         
+        const edit = document.createElement('input');
+        edit.type = 'image';
+        edit.classList.add('todo-task-edit');
+        
+        const del = document.createElement('input');
+        del.type = 'image';
+        del.classList.add('todo-task-delete');
+        
+        const options = document.createElement('div');
+        options.classList.add('todo-task-options');
+        
+        options.append(edit, del);
         content.append(title, desc, dueDate);
-        task.append(priority, content);
+        task.append(priority, content, options);
         
         const menu = document.querySelector('#todo-menu');
         menu.insertBefore(task, menu.lastChild);
+        
+        edit.addEventListener('click', (e) => {
+            const taskEdit = document.querySelector('#modal-edit-task');
+            taskEdit.dataset.id = todo.id;
+            
+            toggleModalTaskEdit();
+        });
+        
+        return task;
+    }
+    
+    const editTODO = (todo) => {
+        const tasks = document.querySelectorAll('.todo-task');
+        const task = Array.from(tasks).find(t => t.dataset.id == todo.id);
+        
+        task.querySelector('.todo-task-title').textContent = todo.title;
+        task.querySelector('.todo-task-desc').textContent = todo.description;
     }
     
     const resetModal = (modal) => {
@@ -148,6 +177,13 @@ const domManager = (() => {
     
     const toggleModalTaskAdd = () => {
         const modal = document.querySelector('#modal-add-task');
+        
+        resetModal(modal);
+        modal.classList.toggle('modal-disabled');
+    }
+    
+    const toggleModalTaskEdit = () => {
+        const modal = document.querySelector('#modal-edit-task');
         
         resetModal(modal);
         modal.classList.toggle('modal-disabled');
@@ -265,7 +301,7 @@ const domManager = (() => {
     }
     
     return { init, addProject, setActive, setInactive, setMaxProjects, removeProject, populateTODO, addTODO,
-        toggleModalTaskAdd };
+        toggleModalTaskAdd, toggleModalTaskEdit, editTODO };
 })();
 
 export default domManager;

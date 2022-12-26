@@ -632,7 +632,6 @@ input[type=image] {
     min-height: 40px;
     padding: 10px;
     
-    cursor: pointer;
     border-bottom: 1px solid #72757e;
 }
 
@@ -679,6 +678,9 @@ input[type=image] {
     flex-direction: column;
     
     gap: 4px;
+    cursor: auto;
+    
+    margin-right: auto;
 }
 
 .todo-task-title {
@@ -701,6 +703,32 @@ input[type=image] {
     content: url('../img/icon-calendar.svg');
     height: auto;
     width: 16px;
+}
+
+.todo-task-options {
+    display: flex;
+    align-items: center;
+    
+    gap: 10px;
+}
+
+.todo-task-options input[type=image] {
+    height: auto;
+    width: 20px;
+    padding: 4px;
+    border-radius: 4px;
+}
+
+.todo-task-options input[type=image]:hover {
+    background-color: #7f5af0;
+}
+
+.todo-task-edit {
+    content: url('../img/icon-edit.svg');
+}
+
+.todo-task-delete {
+    content: url('../img/icon-delete.svg');
 }
 
 .todo-modal {
