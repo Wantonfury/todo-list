@@ -141,6 +141,18 @@ const domManager = (() => {
         menu.insertBefore(task, menu.lastChild);
     }
     
+    const resetModal = (modal) => {
+        const inputs = modal.querySelectorAll('.modal-field input');
+        inputs.forEach(input => input.value = '');
+    }
+    
+    const toggleModalTaskAdd = () => {
+        const modal = document.querySelector('#modal-add-task');
+        
+        resetModal(modal);
+        modal.classList.toggle('modal-disabled');
+    }
+    
     // Empty name field and reset color choice to default
     const formReset = (formContainer) => {
         const name = document.querySelector('#form-add');
@@ -252,7 +264,8 @@ const domManager = (() => {
         setupProjectsTabColor();
     }
     
-    return { init, addProject, setActive, setInactive, setMaxProjects, removeProject, populateTODO, addTODO };
+    return { init, addProject, setActive, setInactive, setMaxProjects, removeProject, populateTODO, addTODO,
+        toggleModalTaskAdd };
 })();
 
 export default domManager;

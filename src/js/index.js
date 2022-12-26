@@ -93,11 +93,8 @@ const todoManager = (() => {
         
         const addTask = document.querySelector('#todo-add');
         addTask.addEventListener('click', () => {
-            if (todos.length >= todosMax) return;
-            
-            const todo = new TODO('Hello world! ' + todos.length, 'Just a description m\'lord.', '23 Dec', 1);
-            addTODO(todo);
-            
+            if (projects[projectActive].todos.length >= todosMax) return;
+            domManager.toggleModalTaskAdd();
         });
     }
     
@@ -136,6 +133,39 @@ const todoManager = (() => {
         projects.push(project);
     }
     
+    const setupModalTaskAdd = () => {
+        const form = document.querySelector('#modal-add-task');
+        const cancel = document.querySelector('#modal-add-task .modal-btns-cancel');
+        const overlay = document.querySelector('#modal-add-task .modal-overlay');
+        
+        cancel.addEventListener('click', () => {
+            domManager.toggleModalTaskAdd();
+        });
+        
+        overlay.addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) {
+                domManager.toggleModalTaskAdd();
+            }
+        });
+        
+        form.addEventListener('submit', (e) => {
+            const title = document.querySelector('#modal-task-title').value;
+            const desc = document.querySelector('#modal-task-desc').value;
+            
+            if (projects[projectActive].todos.length < todosMax) {
+                const todo = new TODO(title, desc, '23 Dec', 1);
+                addTODO(todo);
+            }
+            
+            domManager.toggleModalTaskAdd();
+            e.preventDefault();
+        });
+    }
+    
+    const setupModalTaskEdit = () => {
+        
+    }
+    
     const init = () => {
         const projectAdd = document.querySelector('#projects-add-form');
         const btnDelete = document.querySelector('#btn-delete');
@@ -163,6 +193,9 @@ const todoManager = (() => {
             domManager.removeProject(target);
             removeProject(target);
         });
+        
+        setupModalTaskAdd();
+        setupModalTaskEdit();
         
         if (!loadProjects()) {
             // If no projects were saved create a Default project

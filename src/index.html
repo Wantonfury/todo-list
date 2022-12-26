@@ -5,6 +5,26 @@
         <title>Todo List</title>
     </head>
     <body>
+        <form class="modal modal-disabled" id="modal-add-task">
+            <div class="modal-overlay"></div>
+            
+            <div class="modal-container">
+                <div class="modal-title">
+                    <span>Add Task</span>
+                </div>
+                
+                <div class="modal-field">
+                    <input type="text" name="task-title" id="modal-task-title" placeholder="Title" maxlength="10" required>
+                    <input type="text" name="task-desc" id="modal-task-desc" placeholder="Description" maxlength="20" required>
+                </div>
+                
+                <div class="modal-btns">
+                    <button type="button" class="modal-btns-cancel">Cancel</button>
+                    <input type="submit" class="modal-btns-add">
+                </div>
+            </div>
+        </form>
+        
         <div id="header">
             <img alt="Menu" id="icon-menu" class="icon">
             <img alt="Home" id="icon-home" class="icon">
