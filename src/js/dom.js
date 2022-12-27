@@ -156,7 +156,7 @@ const domManager = (() => {
             const taskEdit = document.querySelector('#modal-edit-task');
             taskEdit.dataset.id = todo.id;
             
-            toggleModalTaskEdit();
+            toggleModalTaskEdit(todo);
         });
         
         return task;
@@ -170,9 +170,34 @@ const domManager = (() => {
         task.querySelector('.todo-task-desc').textContent = todo.description;
     }
     
-    const resetModal = (modal) => {
-        const inputs = modal.querySelectorAll('.modal-field input');
-        inputs.forEach(input => input.value = '');
+    const resetModal = (modal, todo = null) => {
+        const inputsAdd = modal.querySelectorAll('#modal-add-task .modal-field input');
+        
+        inputsAdd.forEach(input => {
+            if (input.type == 'text')
+                input.value = '';
+            else if (input.type =='date')
+                input.value = '2022-12-31';
+            else if (input.type == 'number')
+                input.value = '4';
+        });
+        
+        const inputsEdit = modal.querySelectorAll('#modal-edit-task .modal-field input');
+        
+        inputsEdit.forEach(input => {
+            if (input.type == 'text') {
+                input.value = '';
+                if (todo) input.value = input.id == 'modal-edit-title' ? todo.title : todo.description;
+            }
+            else if (input.type =='date') {
+                input.value = '2022-12-31';
+                if (todo) input.value = todo.dueDate;
+            }
+            else if (input.type == 'number') {
+                input.value = '4';
+                if (todo) input.value = todo.priority;
+            }
+        });
     }
     
     const toggleModalTaskAdd = () => {
@@ -182,10 +207,10 @@ const domManager = (() => {
         modal.classList.toggle('modal-disabled');
     }
     
-    const toggleModalTaskEdit = () => {
+    const toggleModalTaskEdit = (todo = null) => {
         const modal = document.querySelector('#modal-edit-task');
         
-        resetModal(modal);
+        resetModal(modal, todo);
         modal.classList.toggle('modal-disabled');
     }
     

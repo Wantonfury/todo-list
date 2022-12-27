@@ -161,9 +161,11 @@ const todoManager = (() => {
         form.addEventListener('submit', (e) => {
             const title = document.querySelector('#modal-task-title').value;
             const desc = document.querySelector('#modal-task-desc').value;
+            const date = document.querySelector('#modal-task-date').value;
+            const priority = document.querySelector('#modal-task-priority').value;
             
             if (projects[projectActive].todos.length < todosMax) {
-                const todo = new TODO(title, desc, '23 Dec', 1);
+                const todo = new TODO(title, desc, date, priority);
                 addTODO(todo);
             }
             
@@ -190,10 +192,15 @@ const todoManager = (() => {
         form.addEventListener('submit', (e) => {
             const title = document.querySelector('#modal-edit-title').value;
             const desc = document.querySelector('#modal-edit-desc').value;
+            const date = document.querySelector('#modal-edit-date').value;
+            const number = document.querySelector('#modal-edit-priority').value;
             
             const todo = todos.find(t => t.id == form.dataset.id);
             todo.title = title;
             todo.description = desc;
+            todo.date = date;
+            todo.number = number;
+            
             domManager.editTODO(todo);
             storage.saveTODOS(todos, TODO._idsGenerated);
             
